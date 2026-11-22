@@ -7,7 +7,7 @@ import (
 )
 
 func Greeting() string {
-	return "Parts Unlimited - каталог запчастей"
+	return "Parts Unlimited - магазин запчастей"
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
