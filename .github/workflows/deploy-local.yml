@@ -1,0 +1,27 @@
+name: Deploy to my PC
+
+on:
+  workflow_run:
+    workflows: ["CI/CD"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull image
+        shell: cmd
+        run: docker pull ghcr.io/umbrella000/partsunlimited:latest
+
+      - name: Stop old container
+        shell: cmd
+        continue-on-error: true
+        run: docker rm -f partsunlimited
+
+      - name: Run new container
+        shell: cmd
+        run: docker run -d --name partsunlimited -p 8080:8080 ghcr.io/umbrella000/partsunlimited:latest
