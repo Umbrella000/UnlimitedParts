@@ -6,5 +6,10 @@ jobs:
   hello:
     runs-on: self-hosted
     steps:
-      - run: echo "Hello from my own runner"
-      - run: hostname
+      - name: Hello
+        shell: cmd
+        run: echo Hello from my own runner
+
+      - name: Hostname
+        shell: cmd
+        run: hostname
